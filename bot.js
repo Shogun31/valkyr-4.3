@@ -1,3 +1,33 @@
+onst express = require("express");
+const app = express();
+const http = require("http");
+app.get("/", (request, response) => {
+  console.log(
+    `Az Once Bot Ping yedi, Sorun onemli degil merak etme. Hatayı duzelttik.`
+  );
+  response.sendStatus(200);
+});
+app.listen(process.env.PORT);
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+}, 280000);
+
+const Discord = require("discord.js");
+const db = require('quick.db')
+const client = new Discord.Client();
+const ayarlar = require("./ayarlar.json");
+const fs = require("fs");
+const moment = require("moment"); 
+moment.locale("tr")
+const chalk = require("chalk");
+require("./util/eventLoader")(client);
+
+var prefix = ayarlar.prefix;
+
+const log = message => {
+  console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${message}`);
+};
+
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 fs.readdir("./komutlar/", (err, files) => {
